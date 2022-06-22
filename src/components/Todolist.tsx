@@ -4,8 +4,12 @@ import {FilterType, ScheduleArrType} from "../App";
 export type PropsType = {
     scheduleList: ScheduleArrType
     filterItemHandler: (filter: FilterType) => void
+
     deleteItemHandler: (id: string) => void
+    deleteItemHandler2: (id: string) => void
+
     changeItemStatus: (id: string, newIsDone: boolean) => void
+    changeItemStatus2: (id: string, newIsDone: boolean) => void
 
 }
 
@@ -35,8 +39,17 @@ export function Todolist(props: PropsType) {
         <div>
             <ul>
                 {props.scheduleList.map((item) => {
-                    function onchangeHandler(event: ChangeEvent<HTMLInputElement>) {
+
+                    const onchangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
                         props.changeItemStatus(item.id, event.currentTarget.checked)
+                    }
+
+                    const onClickDeleteHandler = () => {
+                        props.deleteItemHandler2(item.id)
+                    }
+
+                    const onchangeHandler2 = (event: ChangeEvent<HTMLInputElement>) => {
+                        props.changeItemStatus2(item.id, event.currentTarget.checked)
                     }
 
                     return <li key={item.id}>
@@ -45,13 +58,18 @@ export function Todolist(props: PropsType) {
                                    checked={item.isDone}
                                    onChange={onchangeHandler}
                             />
+                            <input type="checkbox" checked={item.isDone} onChange={onchangeHandler2}/>
                             <span>{item.item}</span>
                         </label>
-                        <button type='button' onClick={() => {
+                        <button type='button'
+                                onClick={() => {
                             deleteClickHandler(item.id)
-                        }}>
+                        }}
+                                title={'Delete'}
+                        >
                             Move to Trash
                         </button>
+                        <button type='button' onClick={onClickDeleteHandler}>Delete!</button>
                     </li>
                 })}
             </ul>

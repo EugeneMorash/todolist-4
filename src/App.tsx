@@ -52,6 +52,14 @@ function App() {
     }
     // * ----------- delete filter ------------- //
 
+    // * ----------- delete filter 2------------- //
+    const deleteItemHandler2 = (id: string) => {
+        setSchedule(schedule.filter((item) => item.id !== id))
+
+    }
+    // * ----------- delete filter 2------------- //
+
+
     // * ----------- checkbox activate ------------- //
     const changeItemStatus = (id: string, newIsDone: boolean) => {
         setSchedule(
@@ -66,12 +74,29 @@ function App() {
     // * ----------- checkbox activate ------------- //
 
 
+    // * ----------- checkbox activate2 ------------- //
+        const changeItemStatus2 = (id: string, isDone: boolean) => {
+          setSchedule(
+              schedule.map((item) => {
+                  return (
+                      item.id === id ? {...item, isDone} : item
+                  )
+              })
+          )
+        }
+    // * ----------- checkbox activate ------------- //
+
+
     return (
         <div>
             <Todolist filterItemHandler={filterItemHandler}
                       scheduleList={scheduleList}
+
                       deleteItemHandler={deleteItemHandler}
+                      deleteItemHandler2={deleteItemHandler2}
+
                       changeItemStatus={changeItemStatus}
+                      changeItemStatus2={changeItemStatus}
             />
         </div>
     );
